@@ -1,24 +1,8 @@
-# taskmentor
+# Gestão de Tarefas
+Um aplicativo de gestão de tarefas pode usar elementos de gamificação para tornar o processo de conclusão de tarefas mais divertido e gratificante. Os usuários podem ganhar pontos ou moedas virtuais ao concluir tarefas, desbloquear recompensas e avatares personalizáveis, e competir com outros usuários em desafios de produtividade.
 
-## Project setup
-```
-npm install
-```
+## Tecnologias
+- Vue
+- Vercel
+- 
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
