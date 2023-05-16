@@ -4,5 +4,3 @@ Um aplicativo de gestão de tarefas pode usar elementos de gamificação para to
 ## Tecnologias
 - Vue
 - Vercel
-- 
-
