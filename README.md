@@ -5,4 +5,6 @@ Um aplicativo de gestão de tarefas pode usar elementos de gamificação para to
 - Vue
 - Vercel
 - Naive Ui
-- 
+- Bootstrap
+- Node
+- MongoDB

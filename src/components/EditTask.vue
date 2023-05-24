@@ -36,7 +36,7 @@ export default {
         }
     },
     created() {
-        let apiURL = `http://localhost:4000/api/edit-student/${this.$route.params.id}`;
+        let apiURL = `http://localhost:4000/api/edit-task/${this.$route.params.id}`;
 
         axios.get(apiURL).then((res) => {
             this.student = res.data;
@@ -44,7 +44,7 @@ export default {
     },
     methods: {
         handleUpdateForm() {
-            let apiURL = `http://localhost:4000/api/update-student/${this.$route.params.id}`;
+            let apiURL = `http://localhost:4000/api/update-task/${this.$route.params.id}`;
 
             axios.post(apiURL, this.student).then((res) => {
                 console.log(res)

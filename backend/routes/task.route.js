@@ -1,64 +1,66 @@
 const express = require('express');
-const studentRoute = express.Router();
+const taskRoute = express.Router();
+const TaskModel = require('../models/task');
 
-// Student model
-let StudentModel = require('../models/task');
-
-studentRoute.route('/').get((req, res) => {
-  StudentModel.find({ undefined }).exec()
-  .then((result) => {
-    console.log(result);
-  })
-  .catch((err) => {
-    console.error(err);
-  });
-})
-
-studentRoute.route('/create-student').post((req, res, next) => {
-  StudentModel.create(req.body, (error, data) => {
-    if (error) {
-      return next(error)
-    } else {
-      res.json(data)
-    }
-  })
+taskRoute.route('/').get((req, res, next) => {
+  TaskModel.find()
+    .exec()
+    .then((result) => {
+      console.log(result);
+      res.json(result);
+    })
+    .catch((err) => {
+      console.error(err);
+      next(err);
+    });
 });
 
-studentRoute.route('/edit-student/:id').get((req, res) => {
-   StudentModel.findById(req.params.id, (error, data) => {
-    if (error) {
-      return next(error)
-    } else {
-      res.json(data)
-    }
-  })
-})
+taskRoute.route('/create-task').post((req, res, next) => {
+  TaskModel.create(req.body)
+    .then((data) => {
+      res.json(data);
+    })
+    .catch((error) => {
+      next(error);
+    });
+});
 
-// Update student
-studentRoute.route('/update-student/:id').post((req, res, next) => {
-  StudentModel.findByIdAndUpdate(req.params.id, {
-    $set: req.body
-  }, (error, data) => {
-    if (error) {
-      return next(error);
-    } else {
-      res.json(data)
-      console.log('Student successfully updated!')
-    }
-  })
-})
+taskRoute.route('/edit-task/:id').get((req, res, next) => {
+  TaskModel.findById(req.params.id)
+    .then((data) => {
+      res.json(data);
+    })
+    .catch((error) => {
+      next(error);
+    });
+});
 
-// Delete student
-studentRoute.route('/delete-student/:id').delete((req, res, next) => {
-  StudentModel.findByIdAndRemove(req.params.id, (error, data) => {
-    if (error) {
-      return next(error);
-    } else {
-      res.status(200).json({
-        msg: data
-      })
-    }
-  })
-})
+taskRoute.route('/update-task/:id').post((req, res, next) => {
+  TaskModel.findByIdAndUpdate(req.params.id, { $set: req.body })
+    .then((data) => {
+      res.json(data);
+      console.log('Tarefa atualizada com sucesso!');
+    })
+    .catch((error) => {
+      next(error);
+    });
+});
 
-module.exports = studentRoute;
+taskRoute.route('/delete-task/:id').delete((req, res, next) => {
+  TaskModel.findByIdAndRemove(req.params.id)
+    .then((data) => {
+      res.status(200).json({ msg: data });
+    })
+    .catch((error) => {
+      next(error);
+    });
+});
+
+// Middleware de tratamento de erros
+taskRoute.use((err, req, res, next) => {
+  console.error(err);
+  res.status(500).json({ error: 'Ocorreu um erro interno.' });
+});
+
+
+module.exports = taskRoute;

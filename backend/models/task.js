@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-let studentSchema = new Schema({
+let taskSchema = new Schema({
   name: {
     type: String
   },
@@ -10,9 +10,9 @@ let studentSchema = new Schema({
   },
   phone: {
     type: Number
-  },
+  }
 }, {
-  collection: 'students'
+  collection: 'task'
 })
 
-module.exports = mongoose.model('Student', studentSchema)
+module.exports = mongoose.model('Task', taskSchema)

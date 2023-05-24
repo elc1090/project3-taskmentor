@@ -4,20 +4,20 @@ let express = require('express'),
   database = require('./database'),
   bodyParser = require('body-parser');
 
-// Connect mongoDB
+// Conectando MongoDB
 mongoose.Promise = global.Promise;
 mongoose.connect(database.db, {
     useNewUrlParser: true,
     useUnifiedTopology: true
-}).then(() => {
-    console.log("Database connected")
+  }).then(() => {
+    console.log("Banco de dados conectado")
   },
   error => {
-    console.log("Database could't be connected to: " + error)
+    console.log("Erro ao conectar o banco de dados: " + error)
   }
 )
 
-const studentAPI = require('../backend/routes/task.route')
+const taskAPI = require('../backend/routes/task.route')
 const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
@@ -26,20 +26,20 @@ app.use(bodyParser.urlencoded({
 app.use(cors());
 
 // API
-app.use('/api', studentAPI)
+app.use('/api', taskAPI)
 
-// Create port
+// Criando a porta
 const port = process.env.PORT || 4000;
 const server = app.listen(port, () => {
-  console.log('Connected to port ' + port)
+  console.log('Conectado na porta ' + port)
 })
 
-// Find 404
+// Error 404
 app.use((req, res, next) => {
   next(createError(404));
 });
 
-// error handler
+// Error Handler
 app.use(function (err, req, res, next) {
   console.error(err.message);
   if (!err.statusCode) err.statusCode = 500;
