@@ -1,3 +1,36 @@
+// const express = require('express');
+// const mongoose = require('mongoose');
+// const userRoutes = require('./routes/user.route.js');
+// const taskRoutes = require('./routes/task.route.js');
+// const cors = require('cors');
+
+// const app = express();
+// const PORT = 4000;
+
+// app.use(express.json());
+// app.use(cors());
+
+// // Conectando ao banco de dados MongoDB
+// mongoose.connect('mongodb://localhost:27017/task-manager', {
+//   useNewUrlParser: true,
+//   useUnifiedTopology: true,
+//   // useCreateIndex: true
+// })
+// .then(() => {
+//   console.log('Connected to MongoDB');
+// })
+// .catch((error) => {
+//   console.error('Error connecting to MongoDB:', error);
+// });
+
+// // Rotas
+// app.use(userRoutes);
+// app.use(taskRoutes);
+
+// app.listen(PORT, () => {
+//   console.log(`Server listening on port ${PORT}`);
+// });
+
 let express = require('express'),
   cors = require('cors'),
   mongoose = require('mongoose'),
@@ -18,6 +51,8 @@ mongoose.connect(database.db, {
 )
 
 const taskAPI = require('../backend/routes/task.route')
+const userAPI = require('../backend/routes/user.route')
+
 const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
@@ -26,7 +61,8 @@ app.use(bodyParser.urlencoded({
 app.use(cors());
 
 // API
-app.use('/api', taskAPI)
+app.use('/api',userAPI)
+app.use('/api/:id/task', taskAPI)
 
 // Criando a porta
 const port = process.env.PORT || 4000;

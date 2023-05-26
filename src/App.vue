@@ -1,23 +1,28 @@
 <template>
-  <div>
-    <!-- Nav bar -->
-    <nav class="navbar navbar-dark bg-primary justify-content-between flex-nowrap flex-row">
-      <div class="container">
-        <a class="navbar-brand float-left">MEVN Stack Example | LaravelCode</a>
-        <ul class="nav navbar-nav flex-row float-right">
-          <li class="nav-item">
-            <router-link class="nav-link pr-3" to="/">Create Student</router-link>
-          </li>
-          <li class="nav-item">
-            <router-link class="nav-link" to="/view">View Students</router-link>
-          </li>
-        </ul>
-      </div>
-    </nav>
-
-    <!-- Router view -->
-    <div class="container mt-5">
-      <router-view></router-view>
-    </div>
+  <div id="app">
+    <!-- <nav>
+      <router-link to="/">Home</router-link>
+      <router-link to="/view">View</router-link>
+      <router-link to="/edit/1">Edit</router-link>
+    </nav> -->
+    <router-view></router-view>
   </div>
 </template>
+<script>
+
+export default {
+    components: {
+    },
+    data() {
+        return {
+        };
+    }
+};
+</script>
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+}
+</style>
