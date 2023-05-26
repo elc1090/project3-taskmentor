@@ -77,11 +77,11 @@ export default {
     },
     methods: {
         async handleSubmitForm() {
-            console.log(this.user)
             let apiURL = 'http://localhost:4000/api/create-user';
             axios.post(apiURL, this.user).then(({ data }) => {
-              const { _id } = data;
-              this.$router.push({ path: `/view/${_id}` })
+              console.log(data)
+              // const { _id } = data;
+              //this.$router.push({ path: `/view/${_id}` })
             }).catch((error) => {
               console.log(error)
             })
@@ -96,17 +96,6 @@ export default {
   height: 100vh;
 }
 
-.carousel-img {
-  width: 100%;
-  height: 100vh;
-  object-fit: cover;
-}
-
-.carousel-video {
-  width: 100%; 
-  height: 100%;
-}
-
 .btn-login {
   border-radius: 50px;
   width: 50vh;
@@ -119,16 +108,13 @@ export default {
   margin: 5px;
 }
 
-.layout-left, .layout-right {
+.layout-right {
   flex: 1;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.layout-left {
-  background-color: #f2f2f2;
-}
 
 .layout-right {
   background-color:rgba(234, 234, 234, 1);

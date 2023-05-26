@@ -1,8 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router';
-// import CreateTask from "../components/CreateTask.vue";7
+import CreateTask from "../components/CreateTask.vue";
 import CreateUser from "../components/CreateUser.vue";
 // import ListTask from "../components/ListTask.vue";
-import LoginUser from "../components/LoginUser.vue";
+// import LoginUser from "../components/LoginUser.vue";
 import EditTask from "../components/EditTask.vue";
 
 const routes = [
@@ -14,7 +14,7 @@ const routes = [
     {
         path: '/view/:id',
         name: 'view',
-        component: LoginUser
+        component: CreateTask
     },
     {
         path: '/edit/:id',

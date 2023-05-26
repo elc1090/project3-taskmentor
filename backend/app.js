@@ -62,7 +62,7 @@ app.use(cors());
 
 // API
 app.use('/api',userAPI)
-app.use('/api/:id/task', taskAPI)
+app.use('/api/view/:id/task', taskAPI)
 
 // Criando a porta
 const port = process.env.PORT || 4000;
