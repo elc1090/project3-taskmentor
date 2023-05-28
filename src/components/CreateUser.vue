@@ -33,6 +33,9 @@
                 <div class="btn">
                   <n-button color="#232343" class="btn-login" @click="handleSubmitForm">Criar uma nova conta</n-button>
                 </div>
+                <div>
+                  <router-link class="login" :to="{ name: 'login'}">Login</router-link>
+                </div>
               </n-form>
             </n-config-provider>
           </div>
