@@ -64,7 +64,9 @@ export default {
     },
     methods: {
         deleteTask(id){
-            let apiURL = `http://localhost:4000/api/task/delete-task/${id}`;
+            // let apiURL = `http://localhost:4000/api/task/delete-task/${id}`;
+            let apiURL = `https://project3-taskmentor-api.vercel.app/api/task/delete-task/${id}`;
+            
             let indexOfArrayItem = this.Tasks.findIndex(i => i._id === id);
 
             if (window.confirm("Do you really want to delete?")) {
