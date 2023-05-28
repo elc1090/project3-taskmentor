@@ -7,7 +7,7 @@
             <div class="navbar-menu">
                 <ul>
                     <li class="nav-item">
-                        <a class="nav-link" :href="`${this.$route.href}/list`">Minhas tarefas</a>
+                        <router-link class="nav-link" :to="{ name: 'listTask', params: { id: this.$route.params.id }}">Minhas tarefas</router-link>
                     </li>  
                 </ul>
             </div>

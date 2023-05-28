@@ -7,7 +7,7 @@
             <div class="navbar-menu">
                 <ul>
                     <li class="nav-item">
-                        <a class="nav-link" @click="goBack">Voltar</a>
+                        <router-link class="nav-link" :to="{ name: 'createTask', params: { id: this.$route.params.id }}">Voltar</router-link>
                     </li>  
                 </ul>
             </div>

@@ -7,7 +7,8 @@
             <div class="navbar-menu">
                 <ul>
                     <li class="nav-item">
-                        <a class="nav-link" :href="`${this.$route.href}/list`">Minhas tarefas</a>
+                        <router-link class="nav-link" :to="{ name: 'listTask', params: { id: this.$route.params.idUser }}">Voltar</router-link>
+                        <!-- <a class="nav-link" :href="`${this.$route.href}/list`">Minhas tarefas</a> -->
                     </li>  
                 </ul>
             </div>
@@ -80,6 +81,7 @@ export default {
     }
 }
 </script>
+
 <style scoped>
 .navbar {
   background-color: #232343;
