@@ -104,7 +104,6 @@ export default {
   text-decoration: none;
   color: black;
   display: flex;
-  justify-content: center;
 }
 
 .router-login:hover{
