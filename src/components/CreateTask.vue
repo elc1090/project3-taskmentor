@@ -61,10 +61,10 @@ export default {
             user
         }
     },
-    async created() {
+    created() {
         // let apiURL = `http://localhost:4000/api/${this.$route.params.id}`;
         let apiURL = `https://project3-taskmentor-api.vercel.app/api/${this.$route.params.id}`
-        await axios.get(apiURL).then((res) => {
+        axios.get(apiURL).then((res) => {
             this.user = res.data;
         })
     },
