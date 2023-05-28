@@ -3,7 +3,6 @@
       <div class="layout-right">
         <div class="login">
           <div class="logo">
-            <h1>Teste</h1>
             <img :src="logo" style="width: 150px; height: auto" />
           </div>
           <div class="form">
