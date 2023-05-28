@@ -31,7 +31,6 @@ app.use(cors());
 app.use('/api',userAPI)
 app.use('/api/task', taskAPI)
 
-console.log(process.env.PORT)
 // Criando a porta
 const port = process.env.PORT || 4000;
 const server = app.listen(port, () => {

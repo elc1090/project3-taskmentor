@@ -49,8 +49,10 @@ export default {
     },
     created() {
         const id = this.$route.params.id;
-        let apiURL = `http://localhost:4000/api/task/${ id }`;
-        let apiURLUser = `http://localhost:4000/api/${this.$route.params.id}`;
+        let apiURL = `https://project3-taskmentor-api.vercel.app/api/task/${ id }`;
+        let apiURLUser = `https://project3-taskmentor-api.vercel.app/api/${this.$route.params.id}`;
+        // let apiURL = `http://localhost:4000/api/task/${ id }`;
+        // let apiURLUser = `http://localhost:4000/api/${this.$route.params.id}`;
         
         axios.get(apiURLUser).then((res) => {
             this.user = res.data;

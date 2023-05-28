@@ -57,8 +57,10 @@ export default {
         }
     },
     created() {
-        let apiURL = `http://localhost:4000/api/${this.$route.params.idUser}`;
-        let apiURLTask = `http://localhost:4000/api/task/edit-task/${this.$route.params.id}`;
+        // let apiURL = `http://localhost:4000/api/${this.$route.params.idUser}`;
+        // let apiURLTask = `http://localhost:4000/api/task/edit-task/${this.$route.params.id}`;
+        let apiURL = `https://project3-taskmentor-api.vercel.app/api/${this.$route.params.idUser}`;
+        let apiURLTask  = `https://project3-taskmentor-api.vercel.app/api/task/edit-task/${this.$route.params.id}`;
 
         axios.get(apiURL).then((res) => {
             this.user = res.data;
@@ -70,7 +72,8 @@ export default {
     },
     methods: {
         handleUpdateForm() {
-            let apiURL = `http://localhost:4000/api/task/update-task/${this.$route.params.id}`;
+            // let apiURL = `http://localhost:4000/api/task/update-task/${this.$route.params.id}`;
+            let apiURL = `https://project3-taskmentor-api.vercel.app/api/task/update-task/${this.$route.params.id}`;
 
             axios.post(apiURL, this.task).then(() => {
                 this.$router.push({ name: 'listTask', params: { id: this.$route.params.idUser } })

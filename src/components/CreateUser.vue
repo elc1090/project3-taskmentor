@@ -77,7 +77,9 @@ export default {
     },
     methods: {
       handleSubmitForm() {
-        let apiURL = 'http://localhost:4000/api/create-user';
+        // let apiURL = 'http://localhost:4000/api/create-user';
+        let apiURL = 'https://project3-taskmentor-api.vercel.app/api/create-user';
+
         axios.post(apiURL, this.user).then(() => {
           this.$router.push({ path: '/login' })
         }).catch((error) => {

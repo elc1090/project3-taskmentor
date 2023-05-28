@@ -62,15 +62,16 @@ export default {
         }
     },
     created() {
-        let apiURL = `http://localhost:4000/api/${this.$route.params.id}`;
-        // let apiURL = `https://project3-taskmentor-api.vercel.app/4000/api/${this.$route.params.id}`
+        // let apiURL = `http://localhost:4000/api/${this.$route.params.id}`;
+        let apiURL = `https://project3-taskmentor-api.vercel.app/api/${this.$route.params.id}`
         axios.get(apiURL).then((res) => {
             this.user = res.data;
         })
     },
     methods: {
         handleSubmitForm() {
-            let apiURL = "http://localhost:4000/api/task/create-task";
+            // let apiURL = "http://localhost:4000/api/task/create-task";
+            let apiURL = "https://project3-taskmentor-api.vercel.app/api/task/create-task";
             this.task.user = this.$route.params.id;
             axios.post(apiURL, this.task)
                 .then(() => {
