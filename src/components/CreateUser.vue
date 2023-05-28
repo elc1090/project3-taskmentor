@@ -49,43 +49,42 @@ import logo from '../assets/logo.png';
 
 export default {
     components: {
-        MailOutline,
-        PersonOutline,
-        NIcon,
-        NConfigProvider,
+      MailOutline,
+      PersonOutline,
+      NIcon,
+      NConfigProvider,
     },
     data() {
-        const user = {
-            name: '',
-            email: '',
-            password: ''
-        };
+      const user = {
+        name: '',
+        email: '',
+        password: ''
+      };
 
-        const themeOverrides = {
-            common: {
-                primaryColor: '#232343',
-                primaryColorPressed: '#232343',
-                primaryColorHover: '#232343',
-            },
-        }
+      const themeOverrides = {
+        common: {
+          primaryColor: '#232343',
+          primaryColorPressed: '#232343',
+          primaryColorHover: '#232343',
+        },
+      }
 
-        return {
-            themeOverrides,
-            user,
-            logo
-        };
+      return {
+        themeOverrides,
+        user,
+        logo
+      };
     },
     methods: {
-        async handleSubmitForm() {
-            let apiURL = 'http://localhost:4000/api/create-user';
-            axios.post(apiURL, this.user).then(({ data }) => {
-              console.log(data)
-              // const { _id } = data;
-              //this.$router.push({ path: `/view/${_id}` })
-            }).catch((error) => {
-              console.log(error)
-            })
-        }
+      handleSubmitForm() {
+        let apiURL = 'http://localhost:4000/api/create-user';
+        axios.post(apiURL, this.user).then(() => {
+          this.$router.push({ path: '/login' })
+        }).catch((error) => {
+          console.log(error)
+        })
+      }
+      
     }
 };
 </script>

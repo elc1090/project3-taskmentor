@@ -1,44 +1,26 @@
-// // models/Task.js
-// const mongoose = require('mongoose');
-// const Schema = mongoose.Schema;
-
-// const taskSchema = new Schema({
-//   title: {
-//     type: String,
-//     required: true
-//   },
-//   description: {
-//     type: String,
-//     required: true
-//   },
-//   userId: {
-//     type: Schema.Types.ObjectId,
-//     ref: 'User',
-//     required: true
-//   }
-// }, { collection: 'task' });
-
-// const Task = mongoose.model('Task', taskSchema);
-
-// module.exports = Task;
-
+// models/Task.js
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-let taskSchema = new Schema({
-  name: {
-    type: String
+const taskSchema = new Schema({
+  title: {
+    type: String,
+    required: true
   },
-  email: {
-    type: String
+  description: {
+    type: String,
+    required: true
   },
-  phone: {
-    type: Number
+  concluded: {
+    type: Boolean,
+    default: false
+  },
+  user: {
+    type: Schema.Types.ObjectId,
+    ref: 'User'
   }
-}, {
-  collection: 'task'
-})
+}, { collection: 'task' });
 
 const Task = mongoose.model('Task', taskSchema);
 
-module.exports = Task
+module.exports = Task;

@@ -1,82 +1,10 @@
-// // routes/task.js
-// const express = require('express');
-// const router = express.Router();
-// const Task = require('../models/task');
-
-// // Rota para criar uma tarefa
-// router.post('/tasks', async (req, res) => {
-//   try {
-//     const { title, description, userId } = req.body;
-//     const task = new Task({ title, description, userId });
-//     await task.save();
-//     res.status(201).json(task);
-//   } catch (error) {
-//     res.status(400).json({ error: error.message });
-//   }
-// });
-
-// // Rota para obter todas as tarefas
-// router.get('/tasks', async (req, res) => {
-//   try {
-//     const tasks = await Task.find();
-//     res.json(tasks);
-//   } catch (error) {
-//     res.status(500).json({ error: error.message });
-//   }
-// });
-
-// // Rota para obter uma tarefa específica
-// router.get('/tasks/:id', async (req, res) => {
-//   try {
-//     const task = await Task.findById(req.params.id);
-//     if (!task) {
-//       return res.status(404).json({ error: 'Task not found' });
-//     }
-//     res.json(task);
-//   } catch (error) {
-//     res.status(500).json({ error: error.message });
-//   }
-// });
-
-// // Rota para atualizar uma tarefa
-// router.put('/tasks/:id', async (req, res) => {
-//   try {
-//     const { title, description, userId } = req.body;
-//     const task = await Task.findByIdAndUpdate(
-//       req.params.id,
-//       { title, description, userId },
-//       { new: true }
-//     );
-//     if (!task) {
-//       return res.status(404).json({ error: 'Task not found' });
-//     }
-//     res.json(task);
-//   } catch (error) {
-//     res.status(500).json({ error: error.message });
-//   }
-// });
-
-// // Rota para excluir uma tarefa
-// router.delete('/tasks/:id', async (req, res) => {
-//   try {
-//     const task = await Task.findByIdAndRemove(req.params.id);
-//     if (!task) {
-//       return res.status(404).json({ error: 'Task not found' });
-//     }
-//     res.json({ message: 'Task deleted' });
-//   } catch (error) {
-//     res.status(500).json({ error: error.message });
-//   }
-// });
-
-// module.exports = router;
-
 const express = require('express');
 const taskRoute = express.Router();
 const TaskModel = require('../models/task');
 
-taskRoute.route('/').get((req, res, next) => {
-  TaskModel.find()
+taskRoute.route('/:userId').get((req, res, next) => {
+  const userId = req.params.userId;
+  TaskModel.find({ user: userId })
     .exec()
     .then((result) => {
       console.log(result);

@@ -1,151 +1,137 @@
-<!-- <template>
-    <div class="row justify-content-center">
-        <div class="col-md-6">
-        <h3 class="text-center">{{ formTitle }}</h3>
-        <form @submit.prevent="handleSubmitForm">
-            <div class="form-group">
-                <label>Nome da tarefa</label>
-                <input type="text" class="form-control" v-model="task.title" required>
-            </div>
-
-            <div class="form-group">
-                <label>Descrição</label>
-                <input type="text" class="form-control" v-model="task.description" required>
-            </div>
-
-            <div class="form-group">
-                <button class="btn btn-danger btn-block">{{ submitButtonLabel }}</button>
-            </div>
-        </form>
-        </div>
-    </div>
-</template>
-
-<script>
-import axios from "axios";
-
-export default {
-    data() {
-        return {
-            task: {
-                title: "",
-                description: "",
-            },
-            formTitle: "Criar uma tarefa",
-            submitButtonLabel: "Criar Tarefa",
-        };
-    },
-    methods: {
-        handleSubmitForm() {
-            let apiURL = "http://localhost:4000/api/tasks";
-
-            if (this.$route.name === "EditTask") {
-                // Rota de edição
-                apiURL += `/${this.$route.params.id}`;
-                axios
-                .put(apiURL, this.task)
-                .then(() => {
-                    this.$router.push("/view");
-                })
-                .catch((error) => {
-                    console.log(error);
-                });
-            } else {
-                // Rota de criação
-                console.log(this.task)
-                axios
-                .post(apiURL, this.task)
-                .then(() => {
-                    this.$router.push("/view");
-                })
-                .catch((error) => {
-                    console.log("ee",error);
-                });
-            }
-
-            this.task = {
-                title: "",
-                description: "",
-            };
-        },
-    },
-    created() {
-        if (this.$route.name === "EditTask") {
-            // Rota de edição - preenche o formulário com os dados da tarefa a ser editada
-            this.formTitle = "Editar tarefa";
-            this.submitButtonLabel = "Salvar Alterações";
-            
-            let apiURL = `http://localhost:4000/api/tasks/${this.$route.params.id}`;
-            axios
-            .get(apiURL)
-            .then((response) => {
-                this.task = response.data;
-            })
-            .catch((error) => {
-                console.log(error);
-            });
-        }
-    },
-};
-</script>
-   -->
-
 <template>
-    <div class="row justify-content-center">
-        <div class="col-md-6">
+    <div>
+        <nav class="navbar">
+            <div class="navbar-brand">
+                <span>{{ user.name }}</span>
+            </div>
+            <div class="navbar-menu">
+                <ul>
+                    <li class="nav-item">
+                        <a class="nav-link" :href="`${this.$route.href}/list`">Minhas tarefas</a>
+                    </li>  
+                </ul>
+            </div>
+        </nav>
+        <div class="container">
             <h3 class="text-center">Crie uma tarefa</h3>
-            <form @submit.prevent="handleSubmitForm">
+            <form @submit.prevent="handleSubmitForm" class="form">
                 <div class="form-group">
-                    <label>Nome da tarefa</label>
-                    <input type="text" class="form-control" v-model="student.name" required>
+                    <label for="taskTitle">Título da tarefa</label>
+                    <input
+                        id="taskTitle"
+                        type="text"
+                        class="form-control"
+                        v-model="task.title"
+                        required
+                    />
                 </div>
-
+    
                 <div class="form-group">
-                    <label>Email</label>
-                    <input type="email" class="form-control" v-model="student.email" required>
+                    <label for="taskDescription">Descrição</label>
+                    <input
+                        id="taskDescription"
+                        type="text"
+                        class="form-control"
+                        v-model="task.description"
+                        required
+                    />
                 </div>
-
+    
                 <div class="form-group">
-                    <label>Phone</label>
-                    <input type="text" class="form-control" v-model="student.phone" required>
-                </div>
-
-                <div class="form-group">
-                    <button class="btn btn-danger btn-block">Criar uma conta</button>
+                    <button class="btn-task">Criar uma tarefa</button>
                 </div>
             </form>
         </div>
     </div>
 </template>
-
+  
 <script>
 import axios from "axios";
 
 export default {
     data() {
-        return {
-            student: {
-                name: '',
-                email: '',
-                phone: ''
-            }
+        const task = {
+            title: "",
+            description: ""
         }
+        const user = {}
+
+        return {
+            task,
+            user
+        }
+    },
+    created() {
+        let apiURL = `http://localhost:4000/api/${this.$route.params.id}`;
+
+        axios.get(apiURL).then((res) => {
+            this.user = res.data;
+        })
     },
     methods: {
         handleSubmitForm() {
-            let apiURL = 'http://localhost:4000/api/create-task';
-            
-            axios.post(apiURL, this.student).then(() => {
-                this.$router.push('/view')
-                this.student = {
-                    name: '',
-                    email: '',
-                    phone: ''
-                }
-            }).catch(error => {
-                console.log(error)
+            let apiURL = "http://localhost:4000/api/task/create-task";
+            this.task.user = this.$route.params.id;
+            axios.post(apiURL, this.task)
+                .then(() => {
+                    this.$router.push(`${this.$route.href}/list`)
+                })
+                .catch(error => {
+                    console.log(error);
             });
         }
     }
-}
+};
 </script>
+
+<style scoped>
+.navbar {
+  background-color: #232343;
+  color: #fff;
+  display: flex;
+  justify-content: space-between;
+  padding: 20px 20px;
+}
+
+.nav-item{
+    list-style: none;
+}
+
+.navbar-brand {
+  font-weight: bold;
+}
+
+.navbar-menu {
+  display: flex;
+  align-items: center;
+}
+.nav-link {
+  color: #fff;
+  text-decoration: none;
+}
+.container {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    flex-direction: column;
+}
+.text-center {
+    text-align: center;
+}
+.form-group {
+    margin-bottom: 15px;
+}
+.form-control {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+.btn-task {
+    background-color: #232343;
+    color: #fff;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+</style>
