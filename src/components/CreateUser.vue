@@ -34,7 +34,7 @@
                   <n-button color="#232343" class="btn-login" @click="handleSubmitForm">Criar uma nova conta</n-button>
                 </div>
                 <div>
-                  <router-link class="login" :to="{ name: 'login'}">Login</router-link>
+                  <router-link class="router-login" :to="{ name: 'login'}">Login</router-link>
                 </div>
               </n-form>
             </n-config-provider>
@@ -100,10 +100,18 @@ export default {
   height: 100vh;
 }
 
+.router-login {
+  text-decoration: none;
+  color: black;
+}
+
+.router-login:hover{
+  color: #232343;
+}
+
 .btn-login {
   border-radius: 50px;
   width: 50vh;
-  margin-top: 10px;
 }
 
 .account {
