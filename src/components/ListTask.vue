@@ -16,7 +16,7 @@
         <div>
         <div class="task-list-container">
             <ul class="task-list">
-                <li v-for="task in Tasks" :key="task._id" class="task-item">
+                <li v-for="task in Tasks" :key="task._id" :class="{ 'task-item': true, 'task-completed': task.concluded }">
                 <div class="task-details">
                     <h3>{{ task.title }}</h3>
                     <p>{{ task.description }}</p>
@@ -73,19 +73,20 @@ export default {
                 });
             }
         },
-        markAsCompleted(task){
+        markAsCompleted(task) {
             const taskId = task._id;
             const completed = true;
-            let apiURL = `https://project3-taskmentor-api.vercel.app/api/task/complete-task/${taskId}`;
-            
-            axios.post(apiURL, { completed })
+
+            let apiURL = `https://project3-taskmentor-api.vercel.app/api/task/update-task/${taskId}`;
+            task.concluded = completed;
+
+            axios.post(apiURL, { concluded: completed })
                 .then(() => {
-                    task.concluded = completed;
                     console.log('Tarefa concluída com sucesso!');
                 })
                 .catch(error => {
                     console.error(error);
-            });
+                });
         }
     }
 }
@@ -94,6 +95,10 @@ export default {
 .navbar {
   background-color: #f2f2f2;
   padding: 10px;
+}
+
+.task-completed {
+  opacity: 0.5;
 }
 
 .navbar-brand {

@@ -18,9 +18,9 @@ taskRoute.route('/:userId').get((req, res, next) => {
 
 taskRoute.route('/complete-task/:id').post((req, res, next) => {
   const taskId = req.params.id;
-  const completed = req.body.completed;
+  const completed = req.body.concluded;
 
-  TaskModel.findByIdAndUpdate(taskId, { $set: { completed: completed } })
+  TaskModel.findByIdAndUpdate(taskId, { $set: { concluded: completed } })
     .then((data) => {
       res.json(data);
       console.log('Tarefa concluída com sucesso!');
