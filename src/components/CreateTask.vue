@@ -8,7 +8,8 @@
                 <ul>
                     <li class="nav-item">
                         <router-link class="nav-link" :to="{ name: 'listTask', params: { id: this.$route.params.id }}">Minhas tarefas</router-link>
-                    </li>  
+                        <router-link class="nav-link" :to="{ name: 'login' }"> Sair </router-link>
+                    </li>
                 </ul>
             </div>
         </nav>
@@ -102,13 +103,10 @@ export default {
   font-weight: bold;
 }
 
-.navbar-menu {
-  display: flex;
-  align-items: center;
-}
 .nav-link {
   color: #fff;
   text-decoration: none;
+  margin-right: 15px;
 }
 .container {
     max-width: 400px;

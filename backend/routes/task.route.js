@@ -16,6 +16,20 @@ taskRoute.route('/:userId').get((req, res, next) => {
     });
 });
 
+taskRoute.route('/complete-task/:id').post((req, res, next) => {
+  const taskId = req.params.id;
+  const completed = req.body.completed;
+
+  TaskModel.findByIdAndUpdate(taskId, { $set: { completed: completed } })
+    .then((data) => {
+      res.json(data);
+      console.log('Tarefa concluída com sucesso!');
+    })
+    .catch((error) => {
+      next(error);
+    });
+});
+
 taskRoute.route('/create-task').post((req, res, next) => {
   TaskModel.create(req.body)
     .then((data) => {

@@ -8,7 +8,7 @@
                 <ul>
                     <li class="nav-item">
                         <router-link class="nav-link" :to="{ name: 'listTask', params: { id: this.$route.params.idUser }}">Voltar</router-link>
-                        <!-- <a class="nav-link" :href="`${this.$route.href}/list`">Minhas tarefas</a> -->
+                        <router-link class="nav-link" :to="{ name: 'login' }"> Sair </router-link>
                     </li>  
                 </ul>
             </div>
@@ -109,6 +109,7 @@ export default {
 .nav-link {
   color: #fff;
   text-decoration: none;
+  margin-right: 15px;
 }
 .container {
     max-width: 400px;

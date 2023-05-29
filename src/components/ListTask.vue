@@ -8,31 +8,27 @@
                 <ul>
                     <li class="nav-item">
                         <router-link class="nav-link" :to="{ name: 'createTask', params: { id: this.$route.params.id }}">Voltar</router-link>
+                        <router-link class="nav-link" :to="{ name: 'login' }"> Sair </router-link>
                     </li>  
                 </ul>
             </div>
         </nav>
         <div>
-        <table class="table">
-            <thead>
-            <tr>
-                <th>Título</th>
-                <th>Descrição</th>
-                <th>Ações</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr v-for="task in Tasks" :key="task._id">
-                <td>{{ task.title }}</td>
-                <td>{{ task.description }}</td>
-                <td>
+        <div class="task-list-container">
+            <ul class="task-list">
+                <li v-for="task in Tasks" :key="task._id" class="task-item">
+                <div class="task-details">
+                    <h3>{{ task.title }}</h3>
+                    <p>{{ task.description }}</p>
+                </div>
+                <div class="task-actions">
                     <router-link class="btn btn-warning" :to="{ name: 'editTask', params: { idUser: this.$route.params.id, id: task._id }}">Editar</router-link>
                     <a class="btn btn-danger" @click="deleteTask(task._id)">Deletar</a>
-                    <a class="btn btn-success">Concluir</a>
-                </td>
-            </tr>
-            </tbody>
-        </table>
+                    <a class="btn btn-success" @click="markAsCompleted(task)">Concluir</a>
+                </div>
+                </li>
+            </ul>
+        </div>
         </div>
     </div>
 </template>
@@ -66,21 +62,94 @@ export default {
         deleteTask(id){
             // let apiURL = `http://localhost:4000/api/task/delete-task/${id}`;
             let apiURL = `https://project3-taskmentor-api.vercel.app/api/task/delete-task/${id}`;
-            
+
             let indexOfArrayItem = this.Tasks.findIndex(i => i._id === id);
 
-            if (window.confirm("Do you really want to delete?")) {
+            if (window.confirm("Deseja excluir?")) {
                 axios.delete(apiURL).then(() => {
                     this.Tasks.splice(indexOfArrayItem, 1);
                 }).catch(error => {
                     console.log(error)
                 });
             }
+        },
+        markAsCompleted(task){
+            const taskId = task._id;
+            const completed = true;
+            let apiURL = `https://project3-taskmentor-api.vercel.app/api/task/complete-task/${taskId}`;
+            
+            axios.post(apiURL, { completed })
+                .then(() => {
+                    task.concluded = completed;
+                    console.log('Tarefa concluída com sucesso!');
+                })
+                .catch(error => {
+                    console.error(error);
+            });
         }
     }
 }
 </script>
-<style scoped>
+<style>
+.navbar {
+  background-color: #f2f2f2;
+  padding: 10px;
+}
+
+.navbar-brand {
+  font-weight: bold;
+}
+
+.task-list-container {
+  margin-top: 10px;
+  width: auto;
+}
+
+.task-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.task-item {
+  background-color: #f9f9f9;
+  padding: 10px;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.task-details {
+  flex-grow: 1;
+}
+
+.task-details h3 {
+  margin: 0;
+}
+
+.task-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.btn {
+  padding: 8px 16px;
+  border-radius: 4px;
+  text-decoration: none;
+  color: #fff;
+}
+
+.btn-warning {
+  background-color: #ffc107;
+}
+
+.btn-danger {
+  background-color: #dc3545;
+}
+
+.btn-success {
+  background-color: #28a745;
+}
 .navbar {
   background-color: #232343;
   color: #fff;
@@ -103,82 +172,6 @@ export default {
 .nav-link {
   color: #fff;
   text-decoration: none;
-}
-.table {
-    width: 100%;
-    border-collapse: collapse;
-}
-  
-.table th,
-.table td {
-    padding: 8px;
-    border-bottom: 1px solid #ddd;
-}
-  
-.table th {
-    background-color: #f2f2f2;
-    font-weight: bold;
-    text-align: left;
-}
-  
-.btn {
-    display: inline-block;
-    padding: 6px 12px;
-    margin-left: 10px;
-    margin-bottom: 0;
-    font-size: 14px;
-    font-weight: 400;
-    line-height: 1.42857143;
-    text-align: center;
-    white-space: nowrap;
-    vertical-align: middle;
-    cursor: pointer;
-    border: 1px solid transparent;
-    border-radius: 4px;
-}
-  
-.btn-success {
-    color: #fff;
-    background-color: #5cb85c;
-    border-color: #4cae4c;
-}
-  
-.btn-danger {
-    color: #fff;
-    background-color: #d9534f;
-    border-color: #d43f3a;
-}
-
-.btn-warning {
-    color: #fff;
-    background-color: #f0ad4e;
-    border-color: #eea236;
-}
-
-.btn-success:hover,
-.btn-success:focus,
-.btn-success:active,
-.btn-success.active,
-.open .dropdown-toggle.btn-success {
-    background-color: #449d44;
-    border-color: #398439;
-}
-
-.btn-danger:hover,
-.btn-danger:focus,
-.btn-danger:active,
-.btn-danger.active,
-.open .dropdown-toggle.btn-danger {
-    background-color: #c9302c;
-    border-color: #ac2925;
-}
-
-.btn-warning:hover,
-.btn-warning:focus,
-.btn-warning:active,
-.btn-warning.active,
-.open .dropdown-toggle.btn-warning {
-    background-color: #ec971f;
-    border-color: #d58512;
+  margin-right: 15px;
 }
 </style>
