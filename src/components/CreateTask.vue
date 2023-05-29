@@ -1,49 +1,49 @@
 <template>
-    <div>
-        <nav class="navbar">
-            <div class="navbar-brand">
-                <span>{{ user.name }}</span>
-            </div>
-            <div class="navbar-menu">
-                <ul>
-                    <li class="nav-item">
-                        <router-link class="nav-link" :to="{ name: 'listTask', params: { id: this.$route.params.id }}">Minhas tarefas</router-link>
-                        <router-link class="nav-link" :to="{ name: 'login' }"> Sair </router-link>
-                    </li>
-                </ul>
-            </div>
-        </nav>
-        <div class="container">
-            <h3 class="text-center">Crie uma tarefa</h3>
-            <form @submit.prevent="handleSubmitForm" class="form">
-                <div class="form-group">
-                    <label for="taskTitle">Título da tarefa</label>
-                    <input
-                        id="taskTitle"
-                        type="text"
-                        class="form-control"
-                        v-model="task.title"
-                        required
-                    />
-                </div>
-    
-                <div class="form-group">
-                    <label for="taskDescription">Descrição</label>
-                    <input
-                        id="taskDescription"
-                        type="text"
-                        class="form-control"
-                        v-model="task.description"
-                        required
-                    />
-                </div>
-    
-                <div class="form-group">
-                    <button class="btn-task">Criar uma tarefa</button>
-                </div>
-            </form>
+  <div>
+    <nav class="navbar">
+      <div class="navbar-brand">
+          <span>{{ user.name }}</span>
+      </div>
+      <div class="navbar-menu">
+        <ul>
+          <li class="nav-item">
+            <router-link class="nav-link" :to="{ name: 'listTask', params: { id: this.$route.params.id }}">Minhas tarefas</router-link>
+            <router-link class="nav-link" :to="{ name: 'login' }"> Sair </router-link>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <div class="container">
+      <h3 class="text-center">Crie uma tarefa</h3>
+      <form @submit.prevent="handleSubmitForm" class="form">
+        <div class="form-group">
+          <label for="taskTitle">Título da tarefa</label>
+          <input
+            id="taskTitle"
+            type="text"
+            class="form-control"
+            v-model="task.title"
+            required
+          />
         </div>
+
+        <div class="form-group">
+          <label for="taskDescription">Descrição</label>
+          <input
+            id="taskDescription"
+            type="text"
+            class="form-control"
+            v-model="task.description"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <button class="btn-task">Criar uma tarefa</button>
+        </div>
+      </form>
     </div>
+  </div>
 </template>
   
 <script>
@@ -51,37 +51,34 @@ import axios from "axios";
 
 export default {
     data() {
-        const task = {
-            title: "",
-            description: ""
-        }
-        const user = {}
+      const task = {
+        title: "",
+        description: ""
+      }
+      const user = {}
 
-        return {
-            task,
-            user
-        }
+      return {
+        task,
+        user
+      }
     },
-    created() {
-        // let apiURL = `http://localhost:4000/api/${this.$route.params.id}`;
-        let apiURL = `https://project3-taskmentor-api.vercel.app/api/${this.$route.params.id}`
-        axios.get(apiURL).then((res) => {
-            this.user = res.data;
-        })
+    async created() {
+      let apiURL = `https://project3-taskmentor-api.vercel.app/api/${this.$route.params.id}`
+      const { data } = await axios.get(apiURL);
+      if(data){
+        this.user = data;
+      }
     },
     methods: {
-        handleSubmitForm() {
-            // let apiURL = "http://localhost:4000/api/task/create-task";
-            let apiURL = "https://project3-taskmentor-api.vercel.app/api/task/create-task";
-            this.task.user = this.$route.params.id;
-            axios.post(apiURL, this.task)
-                .then(() => {
-                    this.$router.push(`${this.$route.href}/list`)
-                })
-                .catch(error => {
-                    console.log(error);
-            });
+      async handleSubmitForm() {
+        let apiURL = "https://project3-taskmentor-api.vercel.app/api/task/create-task";
+        this.task.user = this.$route.params.id;
+      
+        const { data } = await axios.post(apiURL, this.task)
+        if(data){
+          this.$router.push(`${this.$route.href}/list`)
         }
+      }
     }
 };
 </script>

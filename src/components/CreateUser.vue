@@ -1,47 +1,47 @@
 <template>
-    <div class="container">
-      <div class="layout-right">
-        <div class="login">
-          <div class="logo">
-            <img :src="logo" style="width: 150px; height: auto" />
-          </div>
-          <div class="form">
-            <n-config-provider :theme-overrides="themeOverrides">
-              <n-form>
-                <n-form-item path="user.name" label="Nome">
-                  <n-input placeholder="Informe seu nome" v-model:value="user.name">
-                    <template #suffix>
-                      <n-icon size="15"> <person-outline/> </n-icon>
-                    </template>
-                  </n-input>  
-                </n-form-item>
-                <n-form-item path="user.email" label="Email">
-                  <n-input placeholder="Informe seu email" v-model:value="user.email">
-                    <template #suffix>
-                      <n-icon size="15"> <mail-outline/> </n-icon>
-                    </template>
-                  </n-input>
-                </n-form-item>
-                <n-form-item path="user.password" label="Senha">
-                  <n-input 
-                    type="password"
-                    placeholder="Informe sua senha" 
-                    show-password-on="click"
-                    v-model:value="user.password">
-                  </n-input>
-                </n-form-item>
-                <div class="btn">
-                  <n-button color="#232343" class="btn-login" @click="handleSubmitForm">Criar uma nova conta</n-button>
-                </div>
-                <div>
-                  <router-link class="router-login" :to="{ name: 'login'}">Login</router-link>
-                </div>
-              </n-form>
-            </n-config-provider>
-          </div>
+  <div class="container">
+    <div class="layout-right">
+      <div class="login">
+        <div class="logo">
+          <img :src="logo" style="width: 150px; height: auto" />
+        </div>
+        <div class="form">
+          <n-config-provider :theme-overrides="themeOverrides">
+            <n-form>
+              <n-form-item path="user.name" label="Nome">
+                <n-input placeholder="Informe seu nome" v-model:value="user.name">
+                  <template #suffix>
+                    <n-icon size="15"> <person-outline/> </n-icon>
+                  </template>
+                </n-input>  
+              </n-form-item>
+              <n-form-item path="user.email" label="Email">
+                <n-input placeholder="Informe seu email" v-model:value="user.email">
+                  <template #suffix>
+                    <n-icon size="15"> <mail-outline/> </n-icon>
+                  </template>
+                </n-input>
+              </n-form-item>
+              <n-form-item path="user.password" label="Senha">
+                <n-input 
+                  type="password"
+                  placeholder="Informe sua senha" 
+                  show-password-on="click"
+                  v-model:value="user.password">
+                </n-input>
+              </n-form-item>
+              <div class="btn">
+                <n-button color="#232343" class="btn-login" @click="handleSubmitForm">Criar uma nova conta</n-button>
+              </div>
+              <div>
+                <router-link class="router-login" :to="{ name: 'login'}">Login</router-link>
+              </div>
+            </n-form>
+          </n-config-provider>
         </div>
       </div>
     </div>
+  </div>
 </template>
   
 <script>
@@ -75,21 +75,18 @@ export default {
       return {
         themeOverrides,
         user,
-        logo
+        logo,
       };
     },
     methods: {
-      handleSubmitForm() {
-        // let apiURL = 'http://localhost:4000/api/create-user';
+      async handleSubmitForm() {
         let apiURL = 'https://project3-taskmentor-api.vercel.app/api/create-user';
 
-        axios.post(apiURL, this.user).then(() => {
+        const { data } = await axios.post(apiURL, this.user);
+        if(data) {  
           this.$router.push({ path: '/login' })
-        }).catch((error) => {
-          console.log(error)
-        })
+        }
       }
-      
     }
 };
 </script>

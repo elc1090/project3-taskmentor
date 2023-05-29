@@ -1,40 +1,40 @@
 <template>
-    <div class="container">
-      <div class="layout-right">
-        <div class="login">
-          <div class="logo">
-            <img :src="logo" style="width: 150px; height: auto" />
-          </div>
-          <div class="form">
-            <n-config-provider :theme-overrides="themeOverrides">
-              <n-form>
-                <n-form-item path="user.email" label="Email">
-                  <n-input placeholder="Informe seu email" v-model:value="user.email">
-                    <template #suffix>
-                      <n-icon size="15"> <mail-outline/> </n-icon>
-                    </template>
-                  </n-input>
-                </n-form-item>
-                <n-form-item path="user.password" label="Senha">
-                  <n-input 
-                    type="password"
-                    placeholder="Informe sua senha" 
-                    show-password-on="click"
-                    v-model:value="user.password">
-                  </n-input>
-                </n-form-item>
-                <div class="btn">
-                  <n-button color="#232343" class="btn-login" @click="handleSubmitForm">Acessar uma conta</n-button>
-                </div>
-                <div>
-                  <router-link class="router-user" :to="{ name: 'home'}">Nova conta</router-link>
-                </div>
-              </n-form>
-            </n-config-provider>
-          </div>
+  <div class="container">
+    <div class="layout-right">
+      <div class="login">
+        <div class="logo">
+          <img :src="logo" style="width: 150px; height: auto" />
+        </div>
+        <div class="form">
+          <n-config-provider :theme-overrides="themeOverrides">
+            <n-form>
+              <n-form-item path="user.email" label="Email">
+                <n-input placeholder="Informe seu email" v-model:value="user.email">
+                  <template #suffix>
+                    <n-icon size="15"> <mail-outline/> </n-icon>
+                  </template>
+                </n-input>
+              </n-form-item>
+              <n-form-item path="user.password" label="Senha">
+                <n-input 
+                  type="password"
+                  placeholder="Informe sua senha" 
+                  show-password-on="click"
+                  v-model:value="user.password">
+                </n-input>
+              </n-form-item>
+              <div class="btn">
+                <n-button color="#232343" class="btn-login" @click="handleSubmitForm">Acessar uma conta</n-button>
+              </div>
+              <div>
+                <router-link class="router-user" :to="{ name: 'home'}">Nova conta</router-link>
+              </div>
+            </n-form>
+          </n-config-provider>
         </div>
       </div>
     </div>
+  </div>
 </template>
   
 <script>
@@ -45,41 +45,40 @@ import logo from '../assets/logo.png';
 
 export default {
     components: {
-        MailOutline,
-        NIcon,
-        NConfigProvider,
+      MailOutline,
+      NIcon,
+      NConfigProvider,
     },
     data() {
         const user = {
-            email: '',
-            password: ''
+          email: '',
+          password: ''
         };
 
         const themeOverrides = {
             common: {
-                primaryColor: '#232343',
-                primaryColorPressed: '#232343',
-                primaryColorHover: '#232343',
+              primaryColor: '#232343',
+              primaryColorPressed: '#232343',
+              primaryColorHover: '#232343',
             },
         }
 
         return {
-            themeOverrides,
-            user,
-            logo
+          themeOverrides,
+          user,
+          logo
         };
     },
     methods: {
-        handleSubmitForm() {
-            // let apiURL = 'http://localhost:4000/api/login';
-            let apiURL = 'https://project3-taskmentor-api.vercel.app/api/login';
-            
-            axios.post(apiURL, this.user).then(({ data }) => {
-              const { _id } = data;
-              this.$router.push({ path: `${_id}/task` })         
-            }).catch((error) => {
-                console.log(error)
-            })
+        async handleSubmitForm() {
+          let apiURL = 'https://project3-taskmentor-api.vercel.app/api/login';
+          
+          const { data } = await axios.post(apiURL, this.user);
+          if(data){
+            const { _id } = data;
+            this.$router.push({ path: `${_id}/task` }) 
+          }
+
         }
     }
 };
