@@ -7,8 +7,9 @@ Um aplicativo de gestão de tarefas pode usar elementos de gamificação para to
 Gabriele Soares Quevedo
 
 ## Bastidores
-Uso dos componentes do Vue
-Aprendi a utilizar a plataforma de hospedagem Vercel
+- Dificuldades com deploy
+- Mudança de foco
+- Aprendizado dos eventos do vue
 
 ## Tecnologias
 - Vue
@@ -18,4 +19,4 @@ Aprendi a utilizar a plataforma de hospedagem Vercel
 - MongoDB
 
 ## Link de acesso
-https://project2-gsquevedo.vercel.app/
+https://project3-taskmentor.vercel.app/login

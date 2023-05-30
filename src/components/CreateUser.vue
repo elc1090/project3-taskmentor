@@ -33,8 +33,10 @@
               <div class="btn">
                 <n-button color="#232343" class="btn-login" @click="handleSubmitForm">Criar uma nova conta</n-button>
               </div>
-              <div>
-                <router-link class="router-login" :to="{ name: 'login'}">Login</router-link>
+              <div class="links">
+                <div class="link-container">
+                  <router-link class="router-login" :to="{ name: 'login'}">Login</router-link>
+                </div>
               </div>
             </n-form>
           </n-config-provider>
@@ -51,47 +53,52 @@ import { MailOutline, PersonOutline } from '@vicons/ionicons5';
 import logo from '../assets/logo.png';
 
 export default {
-    components: {
-      MailOutline,
-      PersonOutline,
-      NIcon,
-      NConfigProvider,
-    },
-    data() {
-      const user = {
-        name: '',
-        email: '',
-        password: ''
-      };
+  components: {
+    MailOutline,
+    PersonOutline,
+    NIcon,
+    NConfigProvider,
+  },
+  data() {
+    const user = {
+      name: '',
+      email: '',
+      password: ''
+    };
 
-      const themeOverrides = {
-        common: {
-          primaryColor: '#232343',
-          primaryColorPressed: '#232343',
-          primaryColorHover: '#232343',
-        },
-      }
+    const themeOverrides = {
+      common: {
+        primaryColor: '#232343',
+        primaryColorPressed: '#232343',
+        primaryColorHover: '#232343',
+      },
+    }
 
-      return {
-        themeOverrides,
-        user,
-        logo,
-      };
-    },
-    methods: {
-      async handleSubmitForm() {
-        let apiURL = 'https://project3-taskmentor-api.vercel.app/api/create-user';
+    return {
+      themeOverrides,
+      user,
+      logo,
+    };
+  },
+  methods: {
+    async handleSubmitForm() {
+      let apiURL = 'https://project3-taskmentor-api.vercel.app/api/create-user';
 
-        const { data } = await axios.post(apiURL, this.user);
-        if(data) {  
-          this.$router.push({ path: '/login' })
-        }
+      const { data } = await axios.post(apiURL, this.user);
+      if(data) {  
+        this.$router.push({ path: '/login' })
       }
     }
+  }
 };
 </script>
 
 <style>
+.link-container {
+  justify-content: center;
+  text-transform: uppercase;
+  display: flex;
+}
 .container {
   display: flex;
   height: 100vh;
@@ -108,8 +115,7 @@ export default {
 }
 
 .btn-login {
-  border-radius: 50px;
-  width: 50vh;
+  width: 120vh;
 }
 
 .account {
@@ -124,7 +130,6 @@ export default {
   align-items: center;
   justify-content: center;
 }
-
 
 .layout-right {
   background-color:rgba(234, 234, 234, 1);

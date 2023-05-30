@@ -171,28 +171,44 @@ export default {
 .btn-success {
   background-color: #28a745;
 }
+
 .navbar {
-  background-color: #232343;
-  color: #fff;
   display: flex;
   justify-content: space-between;
-  padding: 20px 20px;
+  align-items: center;
+  background-color: #232343;
+  padding: 15px 20px;
+  color: #fff;
 }
 
-.navbar-brand {
+.logo img {
+  width: 90px;
+  height: auto;
+}
+
+.nav-item{
+  list-style: none;
+}
+.navbar-brand span {
+  margin-left: 10px;
   font-weight: bold;
 }
 
-.navbar-menu {
-  display: flex;
-  align-items: center;
-}
 .nav-item {
-    list-style: none;
+  display: inline-block;
+  margin-left: 10px;
 }
+
 .nav-link {
-  color: #fff;
   text-decoration: none;
+  color: #fff;
   margin-right: 15px;
 }
+
+.navbar-menu ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
 </style>

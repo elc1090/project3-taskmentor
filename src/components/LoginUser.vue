@@ -26,9 +26,14 @@
               <div class="btn">
                 <n-button color="#232343" class="btn-login" @click="handleSubmitForm">Acessar uma conta</n-button>
               </div>
-              <div>
-                <router-link class="router-user" :to="{ name: 'home'}">Nova conta</router-link>
+              <div class="links">
+                <div class="link-container">
+                  <router-link class="router-login" :to="{ name: 'home'}">Nova conta</router-link>
+                </div>
               </div>
+              <!-- <div>
+                <router-link class="router-user" :to="{ name: 'home'}">Nova conta</router-link>
+              </div> -->
             </n-form>
           </n-config-provider>
         </div>
@@ -89,7 +94,6 @@ export default {
   display: flex;
   height: 100vh;
 }
-
 
 .router-user {
   text-decoration: none;

@@ -42,7 +42,7 @@
         </div>
 
         <div class="form-group">
-          <button class="btn-task">Editar uma tarefa</button>
+          <button class="btn-task">Editar tarefa</button>
         </div>
       </form>
     </div>
@@ -84,53 +84,86 @@ export default {
 
 <style scoped>
 .navbar {
-  background-color: #232343;
-  color: #fff;
   display: flex;
   justify-content: space-between;
-  padding: 20px 20px;
+  align-items: center;
+  background-color: #232343;
+  padding: 15px 20px;
+  color: #fff;
+}
+.logo img {
+  width: 90px;
+  height: auto;
 }
 
 .nav-item{
-    list-style: none;
+  list-style: none;
 }
-
-.navbar-brand {
+.navbar-brand span {
+  margin-left: 10px;
   font-weight: bold;
 }
 
-.navbar-menu {
-  display: flex;
-  align-items: center;
+.nav-item {
+  display: inline-block;
+  margin-left: 10px;
 }
+
 .nav-link {
-  color: #fff;
   text-decoration: none;
+  color: #fff;
   margin-right: 15px;
 }
-.container {
-    max-width: 400px;
-    margin: 0 auto;
-    padding: 20px;
-    flex-direction: column;
+
+.navbar-menu ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
 }
-.text-center {
-    text-align: center;
-}
-.form-group {
-    margin-bottom: 15px;
-}
-.form-control {
-    width: 100%;
-    padding: 10px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
+
 .btn-task {
-    background-color: #232343;
-    color: #fff;
-    padding: 10px 20px;
-    cursor: pointer;
+  background-color: #232343;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  color: #fff;
+  border-radius: 5px;
 }
+
+.btn-task:hover {
+  background-color: #555577;
+}
+
+.container {
+  margin: 0 auto;
+  max-width: 450px;
+  flex-direction: column; 
+  margin-top: 10px;
+}
+
+.text-center {
+  text-align: center;
+  margin-top: 20px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 20px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.form-control {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
 </style>
