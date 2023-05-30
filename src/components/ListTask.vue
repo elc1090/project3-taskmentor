@@ -19,7 +19,13 @@
     <div>
       <div class="task-list-container">
         <ul class="task-list">
-          <li v-for="task in Tasks" :key="task._id" :class="{ 'task-item': true, 'task-completed': task.concluded }">
+          <li v-if="Tasks.length === 0" class="task-item">
+            <div class="task-details no-task">
+              <h3>Não há tarefas</h3>
+              <router-link class="button-new-task" :to="{ name: 'createTask', params: { id: this.$route.params.id }}">Criar uma nova tarefa</router-link>
+            </div>
+          </li>
+          <li v-else v-for="task in Tasks" :key="task._id" :class="{ 'task-item': true, 'task-completed': task.concluded }">
             <div class="task-details">
               <h3>{{ task.title }}</h3>
               <p>{{ task.description }}</p>
@@ -140,14 +146,6 @@ export default {
   align-items: center;
 }
 
-.task-details {
-  flex-grow: 1;
-}
-
-.task-details h3 {
-  margin: 0;
-}
-
 .task-actions {
   display: flex;
   gap: 10px;
@@ -211,4 +209,31 @@ export default {
   padding: 0;
 }
 
+.no-task{
+  text-align: center;
+  padding: 20px;
+  flex-grow: 1;
+}
+
+.task-details h3 {
+  font-size: 24px;
+  font-weight: bold;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+  margin: 0;
+}
+
+.task-details .button-new-task {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #9292da;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 4px;
+  margin-top: 15px;
+}
+
+.task-details .button-new-task:hover {
+  background-color: #232343;
+}
 </style>
