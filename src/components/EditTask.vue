@@ -65,7 +65,9 @@ export default {
       let apiURL = `https://project3-taskmentor-api.vercel.app/api/${this.$route.params.idUser}`;
       let apiURLTask  = `https://project3-taskmentor-api.vercel.app/api/task/edit-task/${this.$route.params.id}`;
 
-      const [ user, task ]= await Promise.all([axios.get(apiURL),  axios.get(apiURLTask)])
+      const user = await axios.get(apiURL);
+      const task = await axios.get(apiURLTask);
+
       this.user = user.data;
       this.task = task.data;
     },
