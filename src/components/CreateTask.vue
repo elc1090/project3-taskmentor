@@ -2,7 +2,10 @@
   <div>
     <nav class="navbar">
       <div class="navbar-brand">
-          <span>{{ user.name }}</span>
+        <div class="logo">
+          <img :src="logo" style="width: 80px; height: auto" />
+        </div>
+        <span>{{ user.name }}</span>
       </div>
       <div class="navbar-menu">
         <ul>
@@ -48,6 +51,7 @@
   
 <script>
 import axios from "axios";
+import logo from '../assets/logo.png';
 
 export default {
     data() {
@@ -59,10 +63,11 @@ export default {
 
       return {
         task,
-        user
+        user,
+        logo
       }
     },
-    async created() {
+    async beforeCreate() {
       let apiURL = `https://project3-taskmentor-api.vercel.app/api/${this.$route.params.id}`
       const { data } = await axios.get(apiURL);
       if(data){

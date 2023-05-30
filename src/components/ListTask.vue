@@ -2,6 +2,9 @@
   <div>
     <nav class="navbar">
       <div class="navbar-brand">
+        <div class="logo">
+          <img :src="logo" style="width: 80px; height: auto" />
+        </div>
         <span>{{ user.name }}</span>
       </div>
       <div class="navbar-menu">
@@ -17,15 +20,18 @@
       <div class="task-list-container">
         <ul class="task-list">
           <li v-for="task in Tasks" :key="task._id" :class="{ 'task-item': true, 'task-completed': task.concluded }">
-          <div class="task-details">
-            <h3>{{ task.title }}</h3>
-            <p>{{ task.description }}</p>
-          </div>
-          <div class="task-actions">
-            <router-link class="btn btn-warning" :to="{ name: 'editTask', params: { idUser: this.$route.params.id, id: task._id }}">Editar</router-link>
-            <a class="btn btn-danger" @click="deleteTask(task._id)">Deletar</a>
-            <a class="btn btn-success" @click="markAsCompleted(task)">Concluir</a>
-          </div>
+            <div class="task-details">
+              <h3>{{ task.title }}</h3>
+              <p>{{ task.description }}</p>
+            </div>
+            <div class="task-actions">
+              <router-link v-if="!task.concluded" class="btn btn-warning" :to="{ name: 'editTask', params: { idUser: this.$route.params.id, id: task._id }}">Editar</router-link>
+              <button v-else class="btn btn-warning btn-disabled" disabled>Editar</button>
+              <button v-if="!task.concluded" class="btn btn-danger" @click="deleteTask(task._id)">Excluir</button>
+              <button v-else class="btn btn-danger btn-disabled" disabled>Excluir</button>
+              <button v-if="!task.concluded" class="btn btn-success" @click="markAsCompleted(task)">Concluir</button>
+              <button v-else class="btn btn-success btn-disabled" disabled>Concluir</button>
+            </div>
           </li>
         </ul>
       </div>
@@ -35,15 +41,17 @@
   
 <script>
 import axios from "axios";
+import logo from '../assets/logo.png';
 
 export default {
     data() {
       return {
         Tasks: [],
-        user: {}
+        user: {},
+        logo
       }
     },
-    async created() {
+    async beforeCreate() {
       const id = this.$route.params.id;
       let apiURL = `https://project3-taskmentor-api.vercel.app/api/task/${ id }`;
       let apiURLUser = `https://project3-taskmentor-api.vercel.app/api/${this.$route.params.id}`;
@@ -95,8 +103,18 @@ export default {
   padding: 10px;
 }
 
+.btn {
+  cursor: pointer;
+  border: none;
+}
+
+.btn-disabled{
+  background-color: lightgray;
+  cursor: not-allowed;
+}
+
 .task-completed {
-  opacity: 0.5;
+  opacity: 0.6;
 }
 
 .navbar-brand {
@@ -116,7 +134,7 @@ export default {
 .task-item {
   background-color: #f9f9f9;
   padding: 10px;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -136,7 +154,7 @@ export default {
 }
 
 .btn {
-  padding: 8px 16px;
+  padding: 10px 16px;
   border-radius: 4px;
   text-decoration: none;
   color: #fff;
